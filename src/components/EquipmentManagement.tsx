@@ -465,8 +465,8 @@ const EquipmentManagement: React.FC<EquipmentManagementProps> = ({
               <thead className="bg-gray-50 border-b border-gray-200">
                 <tr>
                   <th className="text-left py-4 px-6 font-semibold text-gray-700">Category</th>
-                  <th className="text-left py-3 px-3 font-semibold text-gray-700">ID</th>
                   <th className="text-left py-4 px-6 font-semibold text-gray-700">Equipment Name</th>
+                  <th className="text-left py-3 px-3 font-semibold text-gray-700">Equip. ID</th>
                   <th className="text-left py-3 px-3 font-semibold text-gray-700">Status</th>
                   <th className="text-left py-4 px-6 font-semibold text-gray-700">Tech/Mgt.</th>
                   <th className="text-left py-4 px-6 font-semibold text-gray-700">Location</th>
@@ -487,13 +487,13 @@ const EquipmentManagement: React.FC<EquipmentManagementProps> = ({
                       <td className="py-4 px-6">
                         <span className="text-sm font-medium text-gray-900">{item.category}</span>
                       </td>
+                      <td className="py-4 px-6">
+                        <span className="text-sm text-gray-900">{item.name}</span>
+                      </td>
                       <td className="py-3 px-3">
                         <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-mono font-medium bg-gray-100 text-gray-800 border">
                           {item.equipment_id}
                         </span>
-                      </td>
-                      <td className="py-4 px-6">
-                        <span className="text-sm text-gray-900">{item.name}</span>
                       </td>
                       <td className="py-3 px-3">
                         <button
