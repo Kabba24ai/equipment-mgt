@@ -491,7 +491,7 @@ const EquipmentManagement: React.FC<EquipmentManagementProps> = ({
                         <span className="text-sm text-gray-900">{item.name}</span>
                       </td>
                       <td className="py-3 px-3">
-                        <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-mono font-medium bg-gray-100 text-gray-800 border">
+                        <span className="text-xs font-mono font-medium text-gray-800">
                           {item.equipment_id}
                         </span>
                       </td>
