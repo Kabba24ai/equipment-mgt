@@ -171,8 +171,20 @@ const EquipmentManagement: React.FC<EquipmentManagementProps> = ({
     }
   };
 
+  // Define status priority for sorting
+  const getStatusPriority = (status: string) => {
+    const statusOrder = {
+      'damaged': 1,
+      'maintenance': 2,
+      'rented': 3,
+      'available': 4
+    };
+    return statusOrder[status] || 5;
+  };
+
   const filteredEquipment = useMemo(() => {
-    return equipment.filter(item => {
+    // First apply filters
+    const filtered = equipment.filter(item => {
       const matchesSearch = !filters.search || 
         item.name.toLowerCase().includes(filters.search.toLowerCase());
 
@@ -209,6 +221,26 @@ const EquipmentManagement: React.FC<EquipmentManagementProps> = ({
 
       return matchesSearch && matchesCategory && matchesStatus && matchesServiceDue && 
              matchesRentalReady && matchesEquipService;
+    });
+
+    // Then apply sorting
+    return filtered.sort((a, b) => {
+      // 1st level sort: Status priority (Damaged | Maint. Hold | Rented | Available)
+      const statusPriorityA = getStatusPriority(a.status);
+      const statusPriorityB = getStatusPriority(b.status);
+      
+      if (statusPriorityA !== statusPriorityB) {
+        return statusPriorityA - statusPriorityB;
+      }
+
+      // 2nd level sort: Category alphabetically
+      const categoryComparison = a.category.localeCompare(b.category);
+      if (categoryComparison !== 0) {
+        return categoryComparison;
+      }
+
+      // 3rd level sort: Equipment Name alphabetically
+      return a.name.localeCompare(b.name);
     });
   }, [equipment, filters]);
 
