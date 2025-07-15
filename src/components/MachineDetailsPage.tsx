@@ -766,55 +766,35 @@ const MachineDetailsPage: React.FC<MachineDetailsPageProps> = ({
                       <>
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-1">
-                            Battery Configuration
+                            Standard Battery Count
                           </label>
-                          <select
-                            name="battery_type"
-                            value={formData.battery_type}
+                          <input
+                            type="number"
+                            name="standard_battery_count"
+                            value={formData.standard_battery_count}
                             onChange={handleInputChange}
-                            className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors bg-white"
-                          >
-                            <option value="">Select Configuration</option>
-                            <option value="standard">Standard Battery Count</option>
-                            <option value="expanded">Expanded Battery Count</option>
-                          </select>
+                            placeholder="0"
+                            min="0"
+                            step="1"
+                            className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                          />
                         </div>
 
-                        {formData.battery_type === 'standard' && (
-                          <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">
-                              Standard Battery Count
-                            </label>
-                            <input
-                              type="number"
-                              name="standard_battery_count"
-                              value={formData.standard_battery_count}
-                              onChange={handleInputChange}
-                              placeholder="0"
-                              min="0"
-                              step="1"
-                              className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                            />
-                          </div>
-                        )}
-
-                        {formData.battery_type === 'expanded' && (
-                          <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">
-                              Expanded Battery Count
-                            </label>
-                            <input
-                              type="number"
-                              name="expanded_battery_count"
-                              value={formData.expanded_battery_count}
-                              onChange={handleInputChange}
-                              placeholder="0"
-                              min="0"
-                              step="1"
-                              className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                            />
-                          </div>
-                        )}
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
+                            Expanded Battery Count
+                          </label>
+                          <input
+                            type="number"
+                            name="expanded_battery_count"
+                            value={formData.expanded_battery_count}
+                            onChange={handleInputChange}
+                            placeholder="0"
+                            min="0"
+                            step="1"
+                            className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                          />
+                        </div>
                       </>
                     )}
                   </div>
