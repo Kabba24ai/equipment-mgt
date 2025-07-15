@@ -131,6 +131,10 @@ const EquipmentViewPage: React.FC<EquipmentViewPageProps> = ({
     alert(`Navigating to Order: ${orderId}`);
   };
 
+  const handleEditClick = () => {
+    onNavigateToEdit();
+  };
+
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-US', { 
       style: 'currency', 
@@ -185,7 +189,7 @@ const EquipmentViewPage: React.FC<EquipmentViewPageProps> = ({
 
             <div className="flex items-center space-x-3">
               <button
-                onClick={onNavigateToEdit}
+                onClick={handleEditClick}
                 className="flex items-center space-x-2 px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors"
               >
                 <Edit className="h-4 w-4" />
