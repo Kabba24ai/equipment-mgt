@@ -44,7 +44,7 @@ const MachineDetailsPage: React.FC<MachineDetailsPageProps> = ({
   equipmentId,
   onNavigateBack
 }) => {
-  const [isEditMode, setIsEditMode] = useState(!isEdit);
+  const [isEditMode, setIsEditMode] = useState(true);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -229,24 +229,13 @@ const MachineDetailsPage: React.FC<MachineDetailsPageProps> = ({
             </div>
 
             <div className="flex items-center space-x-3">
-              {isEdit && (
-                <button
-                  onClick={toggleViewMode}
-                  className="px-4 py-2 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg font-medium transition-colors"
-                >
-                  {isEditMode ? 'Switch to View' : 'Switch to Edit'}
-                </button>
-              )}
-
-              {isEditMode && (
-                <button
-                  onClick={handleSubmit}
-                  className="flex items-center space-x-2 px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors"
-                >
-                  <Save className="h-4 w-4" />
-                  <span>{!isEdit ? 'Create Equipment' : 'Save Changes'}</span>
-                </button>
-              )}
+              <button
+                onClick={handleSubmit}
+                className="flex items-center space-x-2 px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors"
+              >
+                <Save className="h-4 w-4" />
+                <span>{!isEdit ? 'Create Equipment' : 'Save Changes'}</span>
+              </button>
             </div>
           </div>
         </div>
@@ -263,8 +252,7 @@ const MachineDetailsPage: React.FC<MachineDetailsPageProps> = ({
 
         {/* Main Content */}
         <div className="p-6">
-          {isEditMode ? (
-            <div className="max-w-5xl">
+          <div className="max-w-5xl">
               {/* 2x2 Grid Layout for all 4 sections */}
               <div className="grid grid-cols-2 gap-6">
 
@@ -881,14 +869,6 @@ const MachineDetailsPage: React.FC<MachineDetailsPageProps> = ({
                 </div>
               </div>
             </div>
-          ) : (
-            <div className="max-w-5xl">
-              <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-                <h2 className="text-xl font-bold text-gray-900 mb-4">View Mode</h2>
-                <p className="text-gray-600">Condensed view mode will be implemented next...</p>
-              </div>
-            </div>
-          )}
         </div>
       </div>
     </div>
