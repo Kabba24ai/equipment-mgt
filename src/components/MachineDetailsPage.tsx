@@ -29,6 +29,14 @@ interface FormData {
   imei: string;
   rental_ready_checklist: string;
   equipment_service_list: string;
+  power_source: string;
+  has_def: boolean;
+  diesel_gallons: string;
+  def_gallons: string;
+  gas_gallons: string;
+  battery_type: string;
+  standard_battery_count: string;
+  expanded_battery_count: string;
 }
 
 const MachineDetailsPage: React.FC<MachineDetailsPageProps> = ({
@@ -61,7 +69,15 @@ const MachineDetailsPage: React.FC<MachineDetailsPageProps> = ({
     plate: '',
     imei: '',
     rental_ready_checklist: '',
-    equipment_service_list: ''
+    equipment_service_list: '',
+    power_source: '',
+    has_def: false,
+    diesel_gallons: '',
+    def_gallons: '',
+    gas_gallons: '',
+    battery_type: '',
+    standard_battery_count: '',
+    expanded_battery_count: ''
   });
 
   const categories = [
@@ -102,16 +118,27 @@ const MachineDetailsPage: React.FC<MachineDetailsPageProps> = ({
         plate: 'EXC-001',
         imei: '123456789012345',
         rental_ready_checklist: 'Heavy Equipment Check',
-        equipment_service_list: 'Excavator Maintenance'
+        equipment_service_list: 'Excavator Maintenance',
+        power_source: 'diesel',
+        has_def: true,
+        diesel_gallons: '50',
+        def_gallons: '5',
+        gas_gallons: '',
+        battery_type: '',
+        standard_battery_count: '',
+        expanded_battery_count: ''
       });
     }
   }, [isEdit, equipmentId]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
+    const { name, value, type } = e.target;
+    const checked = (e.target as HTMLInputElement).checked;
+    const newValue = type === 'checkbox' ? checked : value;
+
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: newValue
     }));
 
     if (errors[name]) {
@@ -634,9 +661,166 @@ const MachineDetailsPage: React.FC<MachineDetailsPageProps> = ({
               </div>
 
               {/* Second Row - Additional Sections */}
-              <div className="grid grid-cols-2 gap-6 mt-6">
+              <div className="grid grid-cols-3 gap-6 mt-6">
                 
-                {/* Bottom Left - Rental Ready */}
+                {/* Power Source Section */}
+                <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
+                  <div className="flex items-center space-x-2 mb-4">
+                    <svg className="h-5 w-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                    <h3 className="text-lg font-bold text-gray-900">Power Source</h3>
+                  </div>
+
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Power Type
+                      </label>
+                      <select
+                        name="power_source"
+                        value={formData.power_source}
+                        onChange={handleInputChange}
+                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors bg-white"
+                      >
+                        <option value="">Select Power Source</option>
+                        <option value="diesel">Diesel</option>
+                        <option value="gas">Gas</option>
+                        <option value="batteries">Batteries</option>
+                      </select>
+                    </div>
+
+                    {/* Diesel Fields */}
+                    {formData.power_source === 'diesel' && (
+                      <>
+                        <div className="flex items-center space-x-2">
+                          <input
+                            type="checkbox"
+                            name="has_def"
+                            checked={formData.has_def}
+                            onChange={handleInputChange}
+                            className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                          />
+                          <label className="text-sm font-medium text-gray-700">
+                            Has DEF (Diesel Exhaust Fluid)
+                          </label>
+                        </div>
+                        
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
+                            Diesel Tank Capacity (Gallons)
+                          </label>
+                          <input
+                            type="number"
+                            name="diesel_gallons"
+                            value={formData.diesel_gallons}
+                            onChange={handleInputChange}
+                            placeholder="0"
+                            min="0"
+                            step="0.1"
+                            className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                          />
+                        </div>
+
+                        {formData.has_def && (
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                              DEF Tank Capacity (Gallons)
+                            </label>
+                            <input
+                              type="number"
+                              name="def_gallons"
+                              value={formData.def_gallons}
+                              onChange={handleInputChange}
+                              placeholder="0"
+                              min="0"
+                              step="0.1"
+                              className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                            />
+                          </div>
+                        )}
+                      </>
+                    )}
+
+                    {/* Gas Fields */}
+                    {formData.power_source === 'gas' && (
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                          Gas Tank Capacity (Gallons)
+                        </label>
+                        <input
+                          type="number"
+                          name="gas_gallons"
+                          value={formData.gas_gallons}
+                          onChange={handleInputChange}
+                          placeholder="0"
+                          min="0"
+                          step="0.1"
+                          className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                        />
+                      </div>
+                    )}
+
+                    {/* Battery Fields */}
+                    {formData.power_source === 'batteries' && (
+                      <>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
+                            Battery Configuration
+                          </label>
+                          <select
+                            name="battery_type"
+                            value={formData.battery_type}
+                            onChange={handleInputChange}
+                            className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors bg-white"
+                          >
+                            <option value="">Select Configuration</option>
+                            <option value="standard">Standard Battery Count</option>
+                            <option value="expanded">Expanded Battery Count</option>
+                          </select>
+                        </div>
+
+                        {formData.battery_type === 'standard' && (
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                              Standard Battery Count
+                            </label>
+                            <input
+                              type="number"
+                              name="standard_battery_count"
+                              value={formData.standard_battery_count}
+                              onChange={handleInputChange}
+                              placeholder="0"
+                              min="0"
+                              step="1"
+                              className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                            />
+                          </div>
+                        )}
+
+                        {formData.battery_type === 'expanded' && (
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                              Expanded Battery Count
+                            </label>
+                            <input
+                              type="number"
+                              name="expanded_battery_count"
+                              value={formData.expanded_battery_count}
+                              onChange={handleInputChange}
+                              placeholder="0"
+                              min="0"
+                              step="1"
+                              className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                            />
+                          </div>
+                        )}
+                      </>
+                    )}
+                  </div>
+                </div>
+
+                {/* Rental Ready */}
                 <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
                   <div className="flex items-center space-x-2 mb-4">
                     <CheckCircle className="h-5 w-5 text-orange-600" />
@@ -664,7 +848,7 @@ const MachineDetailsPage: React.FC<MachineDetailsPageProps> = ({
                   </div>
                 </div>
 
-                {/* Bottom Right - Equipment Service */}
+                {/* Equipment Service */}
                 <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
                   <div className="flex items-center space-x-2 mb-4">
                     <Wrench className="h-5 w-5 text-indigo-600" />
