@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowLeft, Save, AlertCircle, CheckCircle, Wrench, DollarSign, Hash, Truck, Smartphone, FileText } from 'lucide-react';
+import { ArrowLeft, Save, AlertCircle, CheckCircle, Wrench, DollarSign, Hash, Truck, Smartphone, FileText, Package } from 'lucide-react';
 
 interface MachineDetailsPageProps {
   isEdit: boolean;
@@ -29,6 +29,7 @@ interface FormData {
   imei: string;
   rental_ready_checklist: string;
   equipment_service_list: string;
+  equipment_parts_list: string;
   power_source: string;
   has_def: boolean;
   diesel_gallons: string;
@@ -70,6 +71,7 @@ const MachineDetailsPage: React.FC<MachineDetailsPageProps> = ({
     imei: '',
     rental_ready_checklist: '',
     equipment_service_list: '',
+    equipment_parts_list: '',
     power_source: '',
     has_def: false,
     diesel_gallons: '',
@@ -119,6 +121,7 @@ const MachineDetailsPage: React.FC<MachineDetailsPageProps> = ({
         imei: '123456789012345',
         rental_ready_checklist: 'Heavy Equipment Check',
         equipment_service_list: 'Excavator Maintenance',
+        equipment_parts_list: 'Excavator Standard Parts',
         power_source: 'diesel',
         has_def: true,
         diesel_gallons: '50',
@@ -649,7 +652,7 @@ const MachineDetailsPage: React.FC<MachineDetailsPageProps> = ({
               </div>
 
               {/* Second Row - Additional Sections */}
-              <div className="grid grid-cols-3 gap-6 mt-6">
+              <div className="grid grid-cols-4 gap-6 mt-6">
                 
                 {/* Power Source Section */}
                 <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
@@ -809,6 +812,9 @@ const MachineDetailsPage: React.FC<MachineDetailsPageProps> = ({
                       <option value="Heavy Equipment Check">Heavy Equipment Check</option>
                       <option value="Generator Checklist">Generator Checklist</option>
                       <option value="Compressor Check">Compressor Check</option>
+                      <option value="Loader Inspection">Loader Inspection</option>
+                      <option value="Bulldozer Check">Bulldozer Check</option>
+                      <option value="Basic Equipment Check">Basic Equipment Check</option>
                     </select>
                     <p className="mt-2 text-xs text-gray-500">
                       Pre-rental inspection and preparation checklist
@@ -838,6 +844,9 @@ const MachineDetailsPage: React.FC<MachineDetailsPageProps> = ({
                       <option value="Generator Service">Generator Service</option>
                       <option value="Dozer Maintenance">Dozer Maintenance</option>
                       <option value="Loader Service">Loader Service</option>
+                      <option value="Compressor Service">Compressor Service</option>
+                      <option value="Basic Maintenance">Basic Maintenance</option>
+                      <option value="Heavy Equipment Service">Heavy Equipment Service</option>
                     </select>
                     <p className="mt-2 text-xs text-gray-500">
                       Maintenance schedule and service history tracking
@@ -845,6 +854,36 @@ const MachineDetailsPage: React.FC<MachineDetailsPageProps> = ({
                   </div>
                 </div>
 
+                {/* Equipment Parts List */}
+                <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
+                  <div className="flex items-center space-x-2 mb-4">
+                    <Package className="h-5 w-5 text-purple-600" />
+                    <h3 className="text-lg font-bold text-gray-900">Equipment Parts List</h3>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Parts List Template
+                    </label>
+                    <select
+                      name="equipment_parts_list"
+                      value={formData.equipment_parts_list || ''}
+                      onChange={handleInputChange}
+                      className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors bg-white"
+                    >
+                      <option value="">Select Equipment Parts List</option>
+                      <option value="Excavator Standard Parts">Excavator Standard Parts</option>
+                      <option value="Generator Parts Kit">Generator Parts Kit</option>
+                      <option value="Dozer Parts List">Dozer Parts List</option>
+                      <option value="Loader Parts Template">Loader Parts Template</option>
+                      <option value="Compressor Parts Kit">Compressor Parts Kit</option>
+                      <option value="Basic Parts List">Basic Parts List</option>
+                    </select>
+                    <p className="mt-2 text-xs text-gray-500">
+                      Assign a parts list template for this equipment
+                    </p>
+                  </div>
+                </div>
               </div>
 
               {/* Equipment Notes - Full Width at Bottom */}
