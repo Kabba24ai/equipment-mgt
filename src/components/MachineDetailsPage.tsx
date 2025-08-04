@@ -129,7 +129,8 @@ const MachineDetailsPage: React.FC<MachineDetailsPageProps> = ({
         gas_gallons: '',
         battery_type: '',
         standard_battery_count: '',
-        expanded_battery_count: ''
+        expanded_battery_count: '',
+        customer_checklist: 'Equipment Delivery Checklist'
       });
     }
   }, [isEdit, equipmentId]);
