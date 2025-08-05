@@ -30,6 +30,7 @@ interface FormData {
   rental_ready_checklist: string;
   equipment_service_list: string;
   equipment_parts_list: string;
+  customer_checklist: string;
   power_source: string;
   has_def: boolean;
   diesel_gallons: string;
@@ -72,6 +73,7 @@ const MachineDetailsPage: React.FC<MachineDetailsPageProps> = ({
     rental_ready_checklist: '',
     equipment_service_list: '',
     equipment_parts_list: '',
+    customer_checklist: '',
     power_source: '',
     has_def: false,
     diesel_gallons: '',
@@ -122,6 +124,7 @@ const MachineDetailsPage: React.FC<MachineDetailsPageProps> = ({
         rental_ready_checklist: 'Heavy Equipment Check',
         equipment_service_list: 'Excavator Maintenance',
         equipment_parts_list: 'Excavator Standard Parts',
+        customer_checklist: 'Equipment Delivery Checklist',
         power_source: 'diesel',
         has_def: true,
         diesel_gallons: '50',
@@ -130,7 +133,6 @@ const MachineDetailsPage: React.FC<MachineDetailsPageProps> = ({
         battery_type: '',
         standard_battery_count: '',
         expanded_battery_count: '',
-        customer_checklist: 'Equipment Delivery Checklist'
       });
     }
   }, [isEdit, equipmentId]);
@@ -653,7 +655,7 @@ const MachineDetailsPage: React.FC<MachineDetailsPageProps> = ({
               </div>
 
               {/* Second Row - Additional Sections */}
-              <div className="grid grid-cols-4 gap-6 mt-6">
+              <div className="grid grid-cols-3 gap-6 mt-6">
                 
                 {/* Power Source Section */}
                 <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
@@ -792,37 +794,6 @@ const MachineDetailsPage: React.FC<MachineDetailsPageProps> = ({
                   </div>
                 </div>
 
-                {/* Rental Ready */}
-                <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
-                  <div className="flex items-center space-x-2 mb-4">
-                    <CheckCircle className="h-5 w-5 text-orange-600" />
-                    <h3 className="text-lg font-bold text-gray-900">Rental Ready</h3>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Rental Ready Checklist
-                    </label>
-                    <select
-                      name="rental_ready_checklist"
-                      value={formData.rental_ready_checklist || ''}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors bg-white"
-                    >
-                      <option value="">Select Rental Ready Checklist</option>
-                      <option value="Heavy Equipment Check">Heavy Equipment Check</option>
-                      <option value="Generator Checklist">Generator Checklist</option>
-                      <option value="Compressor Check">Compressor Check</option>
-                      <option value="Loader Inspection">Loader Inspection</option>
-                      <option value="Bulldozer Check">Bulldozer Check</option>
-                      <option value="Basic Equipment Check">Basic Equipment Check</option>
-                    </select>
-                    <p className="mt-2 text-xs text-gray-500">
-                      Pre-rental inspection and preparation checklist
-                    </p>
-                  </div>
-                </div>
-
                 {/* Equipment Service */}
                 <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
                   <div className="flex items-center space-x-2 mb-4">
@@ -882,6 +853,73 @@ const MachineDetailsPage: React.FC<MachineDetailsPageProps> = ({
                     </select>
                     <p className="mt-2 text-xs text-gray-500">
                       Assign a parts list template for this equipment
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Third Row - Checklists */}
+              <div className="grid grid-cols-2 gap-6 mt-6">
+                
+                {/* Rental Ready */}
+                <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
+                  <div className="flex items-center space-x-2 mb-4">
+                    <CheckCircle className="h-5 w-5 text-orange-600" />
+                    <h3 className="text-lg font-bold text-gray-900">Rental Ready</h3>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Rental Ready Checklist
+                    </label>
+                    <select
+                      name="rental_ready_checklist"
+                      value={formData.rental_ready_checklist || ''}
+                      onChange={handleInputChange}
+                      className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors bg-white"
+                    >
+                      <option value="">Select Rental Ready Checklist</option>
+                      <option value="Heavy Equipment Check">Heavy Equipment Check</option>
+                      <option value="Generator Checklist">Generator Checklist</option>
+                      <option value="Compressor Check">Compressor Check</option>
+                      <option value="Loader Inspection">Loader Inspection</option>
+                      <option value="Bulldozer Check">Bulldozer Check</option>
+                      <option value="Basic Equipment Check">Basic Equipment Check</option>
+                    </select>
+                    <p className="mt-2 text-xs text-gray-500">
+                      Pre-rental inspection and preparation checklist
+                    </p>
+                  </div>
+                </div>
+
+                {/* Customer Checklist */}
+                <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
+                  <div className="flex items-center space-x-2 mb-4">
+                    <svg className="h-5 w-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                    </svg>
+                    <h3 className="text-lg font-bold text-gray-900">Customer Checklist</h3>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Customer Checklist
+                    </label>
+                    <select
+                      name="customer_checklist"
+                      value={formData.customer_checklist || ''}
+                      onChange={handleInputChange}
+                      className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors bg-white"
+                    >
+                      <option value="">Select Customer Checklist</option>
+                      <option value="Equipment Delivery Checklist">Equipment Delivery Checklist</option>
+                      <option value="Equipment Return Checklist">Equipment Return Checklist</option>
+                      <option value="Customer Handoff Checklist">Customer Handoff Checklist</option>
+                      <option value="Damage Assessment Checklist">Damage Assessment Checklist</option>
+                      <option value="Basic Customer Checklist">Basic Customer Checklist</option>
+                    </select>
+                    <p className="mt-2 text-xs text-gray-500">
+                      Customer delivery and return inspection checklist
                     </p>
                   </div>
                 </div>
